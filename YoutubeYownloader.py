@@ -34,13 +34,18 @@ def fix_title(title):
     return title
 
 def process_video(path,video):
-    audio = video.streams.get_audio_only()
+    title= "Title Grab Failed"
+    try:
+        audio = video.streams.get_audio_only()
 
-    title=fix_title(video.title)
-    print(title)
-    audio.download(output_path=path, filename=f"{title}.webm")
-    fix_audio(path + "\\" + f"{title}")
-    os.remove(path + "\\" + f"{title}.webm")
+        title=fix_title(video.title)
+        print(title)
+        audio.download(output_path=path, filename=f"{title}.webm")
+        fix_audio(path + "\\" + f"{title}")
+        os.remove(path + "\\" + f"{title}.webm")
+    except:
+        print("Failed: "+title)
+        print("Continuing")
 
 
 if "playlist" in url:
@@ -52,14 +57,12 @@ if "playlist" in url:
     print("Playlist Size: "+str(len(videos)))
 
     for v in videos:
-        print(v.title)
 
         process_video(playlist.title,v)
 
 
 else:
     video = YouTube(url)
-    print("Video: "+video.title)
 
     process_video("output", video)
 
