@@ -144,7 +144,7 @@ def process_video(path,video, playlist=None, track_number=None):
         print("Failed: "+title)
         print("Continuing")
 
-
+#checks for playlist
 if "playlist" in url:
     playlist = Playlist(url)
 
@@ -158,6 +158,7 @@ if "playlist" in url:
         process_video("Indie Game The Movie",v,playlist.title, str(i)+'/'+str(len(videos)))
         i+=1
 
+#single video
 else:
     video = YouTube(url)
     process_video("output", video)
