@@ -29,7 +29,7 @@ def fix_audio(path):
 
 #formats title properly, removing undesirables
 def fix_title(title):
-    nonowords=["Kasane Teto", "feat.", "?", "\""]
+    nonowords=["Kasane Teto", "feat.", "?", "\"", ":"]
 
     for word in nonowords:
         title = re.sub(re.escape(word),"",title)
@@ -95,7 +95,7 @@ def add_metadata(audio_file_path, video, playlist=None, track_number=None):
         audio['title'] = fix_title(video.title)
         audio['artist'] = re.sub(r' - Topic',"",video.author)
         if playlist:
-            audio['album'] = "Indie Game: The Movie"
+            audio['album'] = playlist
         if track_number:
             audio['tracknumber'] = track_number
 
@@ -155,7 +155,7 @@ if "playlist" in url:
 
     i=1
     for v in videos:
-        process_video("Indie Game The Movie",v,playlist.title, str(i)+'/'+str(len(videos)))
+        process_video(playlist.title,v,playlist.title, str(i)+'/'+str(len(videos)))
         i+=1
 
 #single video
